@@ -11,12 +11,13 @@ The purpose of this project is twofold:
 ---
 
 ## 📁 Repository Structure
+```
 ├── LICENSE
 ├── README.md
 ├── book_implementations_notebooks/
 ├── book_implementations_modular/
 └── experiments/
-
+```
 
 ### 🔹 `book_implementations_notebooks/`
 Contains Jupyter notebooks that closely follow the style and content of the book.  
@@ -56,4 +57,7 @@ This project is under active development. Current focus:
 ## 📚 Acknowledgments
 
 This repository is inspired by the structure and content of *Generative Deep Learning (2nd Ed.)* by David Foster, and aims to faithfully reproduce and expand upon its ideas in PyTorch.  
+
+Original Keras code: [github.com/davidADSP/generative-deep-learning](https://github.com/davidADSP/generative-deep-learning)
+
 All credit for the original model designs and educational value goes to the author.
