@@ -151,8 +151,7 @@ def train(model: torch.nn.Module,
           save_best: bool = False,
           checkpoint_path: str = "./checkpoint.pth",
           use_writer: bool = False,
-          writer_log_dir: str = "./logs",
-          graph_input_shape: tuple = None) -> Dict[str, List]:
+          writer_log_dir: str = "./logs") -> Dict[str, List]:
     """Trains and tests a PyTorch model.
 
     Passes a target PyTorch models through train_step() and test_step()
@@ -240,7 +239,7 @@ def train(model: torch.nn.Module,
 
         ### New: Experiment tracking ###
         # Add loss results to SummaryWriter
-        if use_writer and graph_input_shape is not None:
+        if use_writer:
             writer.add_scalars(main_tag="Loss", 
                             tag_scalar_dict={"train_loss": train_loss,
                                                 "test_loss": test_loss},
@@ -253,10 +252,12 @@ def train(model: torch.nn.Module,
                             global_step=epoch)
             
             # Track the PyTorch model architecture
-            dummy_input = torch.randn(*graph_input_shape).to(device)
-            writer.add_graph(model=model, 
-                            # Pass in an example input
-                            input_to_model=dummy_input)
+            # Only add graph on the first epoch to avoid redundancy and performance issues
+            if epoch == 0:
+                X, _ = next(iter(train_dataloader))
+                dummy_input = X[:1].to(device)  # batch of size 1
+                writer.add_graph(model=model, input_to_model=dummy_input)
+
     
     # Close the writer
     writer.close()
