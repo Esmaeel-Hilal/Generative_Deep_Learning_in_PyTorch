@@ -183,6 +183,9 @@ def train(model: torch.nn.Module,
                 test_loss: [1.2641, 1.5706],
                 test_acc: [0.3400, 0.2973]} 
     """
+    # Move the model to the device
+    model.to(device)
+
     # Create empty results dictionary
     results = {"train_loss": [],
                "train_acc": [],
