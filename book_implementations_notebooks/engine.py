@@ -214,8 +214,9 @@ def train(model: torch.nn.Module,
         test_loss, test_acc = test_step(model=model,
                                         dataloader=test_dataloader,
                                         loss_fn=loss_fn,
+                                        device=device,
                                         compute_accuracy=compute_accuracy,
-                                        device=device)
+                                        target_fn=target_fn)
 
         if save_best:
             best_loss = save_best_model(model=model, 
